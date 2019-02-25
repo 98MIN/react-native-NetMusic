@@ -1,59 +1,101 @@
-import {createAppContainer,createMaterialTopTabNavigator } from 'react-navigation'
-import Home from '../components/Home'
-import Mine from '../components/Mine'
-import React,{Component} from 'react'
+import {
+    createAppContainer,
+    createMaterialTopTabNavigator,
+    createBottomTabNavigator
+} from 'react-navigation'
+import Personality from '../components/Personality/Personality'
+import SongsList from '../components/SongsList/SongsList'
+import AnchorRadio from '../components/AnchorRadio/AnchorRadio'
+import Leaderboard from '../components/Leaderboard/Leaderboard'
+import React, { Component } from 'react'
 
-const navigationConfig = createMaterialTopTabNavigator ({
-  个性推荐 :{
-    screen:Home,
-    navigationOptions: {
-      tabBarColor: '#3472EE', // 页面背景色
-    }
+const BottomMater = createMaterialTopTabNavigator({
+  个性推荐: {
+      screen: Personality,
+      navigationOptions: {
+          tabBarColor: '#3472EE',
+      }
   },
-  歌单:{
-    screen:Mine,
-    navigationOptions: {
-      tabBarColor: '#3472EE', // 页面背景色
-    }
+  歌单: {
+      screen: SongsList,
+      navigationOptions: {
+          tabBarColor: '#3472EE',
+      }
   },
-  主播电台 :{
-    screen:Home,
-    navigationOptions: {
-      tabBarColor: '#3472EE', // 页面背景色
-    }
+  主播电台: {
+      screen: AnchorRadio,
+      navigationOptions: {
+          tabBarColor: '#3472EE',
+      }
   },
-  排行榜:{
-    screen:Mine,
-    navigationOptions: {
-      tabBarColor: '#3472EE', // 页面背景色
+  排行榜: {
+      screen: Leaderboard,
+      navigationOptions: {
+          tabBarColor: '#3472EE',
+      }
+  }
+}, {
+    initialRouteName: "个性推荐",
+    tabBarOptions: {
+        scrollEnabled: false,
+        upperCaseLabel: true,
+        activeTintColor: 'red',
+        inactiveTintColor: 'gray',
+        style: {
+            backgroundColor: 'white',
+        },
+        tabStyle:{
+          height:39,
+          lineHeight:39
+        },
+        indicatorStyle: {
+            backgroundColor: 'red',
+        }
     }
+})
+
+const NavigationConfig = createBottomTabNavigator({
+  发现音乐: {
+    screen: BottomMater
+  },
+  我的音乐: {
+    screen: Leaderboard,
+  },
+  朋友: {
+    screen: Leaderboard,
+  },
+  账号: {
+    screen: Leaderboard,
   }
 },{
-  initialRouteName:"个性推荐",
-  tabBarOptions: {
-    scrollEnabled: false,   //
-    upperCaseLabel: true, // 是否大写
-    activeTintColor: 'red', // 活动选项卡
-    inactiveTintColor: 'gray', // "非活动" 选项卡
-    style: {
-      backgroundColor: 'white' // 头部导航栏样式
+  tabBarOptions:{
+    activeTintColor:'red',
+    inactiveTintColor:'gray',
+    style:{
+      backgroundColor:'white'
     },
-    indicatorStyle: {
-      backgroundColor: 'red' // 指示器样式
+    tabStyle:{
+      height:54,
+      lineHeight:54
+    },
+    labelStyle:{
+      height:38,
+    },
+    indicatorStyle:{
+      backgroundColor:'red'
     }
   }
 })
 
-const AppContainer = createAppContainer(navigationConfig)
+const AppContainer = createAppContainer(NavigationConfig)
 
 class Navigation extends Component {
 
-  render() {
-    return (
-      <AppContainer/>
-    );
-  }
+    render() {
+        return (
+          <AppContainer />
+        );
+    }
 }
 
 export default Navigation;
-

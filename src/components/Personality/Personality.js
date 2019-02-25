@@ -6,7 +6,7 @@ class Home extends Component {
   render() {
     return (
       <View>
-        <Text style={{color:"black"}}>Home</Text>
+        <Text>Home</Text>
       </View>
     );
   }
