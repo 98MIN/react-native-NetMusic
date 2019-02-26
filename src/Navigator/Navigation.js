@@ -1,7 +1,8 @@
 import {
     createAppContainer,
     createMaterialTopTabNavigator,
-    createBottomTabNavigator
+    createBottomTabNavigator,
+    createStackNavigator
 } from 'react-navigation'
 import { StyleSheet,View,Text} from 'react-native'
 import Icon from "react-native-vector-icons/Feather"
@@ -10,6 +11,7 @@ import SongsList from '../components/SongsList/SongsList'
 import AnchorRadio from '../components/AnchorRadio/AnchorRadio'
 import Leaderboard from '../components/Leaderboard/Leaderboard'
 import React, { Component } from 'react'
+import Login from '../components/Login/Login'
 
 const BottomMater = createMaterialTopTabNavigator({
   个性推荐: {
@@ -111,7 +113,22 @@ const NavigationConfig = createBottomTabNavigator({
   }
 })
 
-const AppContainer = createAppContainer(NavigationConfig)
+const LoginNav = createStackNavigator({
+  Login:{
+    screen:Login,
+    navigationOptions:{
+      header:null
+    }
+  },
+  NavigationConfig:{
+    screen:NavigationConfig,
+    navigationOptions:{
+      header:null
+    }
+  }
+})
+
+const AppContainer = createAppContainer(LoginNav)
 
 class Navigation extends Component {
 

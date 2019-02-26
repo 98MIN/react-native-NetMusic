@@ -15,7 +15,7 @@ import Navigation from './src/Navigator/Navigation'
 
 export default class App extends Component{
   render() {
-    const isLogin = 0
+    const isLogin = 1
     return (
        isLogin ? <Navigation/> : <Login/>
     );

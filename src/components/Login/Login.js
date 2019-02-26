@@ -7,6 +7,7 @@ class Login extends Component {
     super(props)
   }
   render() {
+    console.log(this.props)
     return (
       <View>
         <View style={styles.header}>
@@ -24,6 +25,7 @@ class Login extends Component {
                   buttonStyle={Object.assign({ marginTop: 60 }, styles.main_button)}
                   type="outline"
                   titleStyle={{ color: 'red' }}
+                  onPress={()=> this.props.navigation.navigate('NavigationConfig')}
                 />
               </View>
               <View>
