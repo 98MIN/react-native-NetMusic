@@ -3,6 +3,8 @@ import {
     createMaterialTopTabNavigator,
     createBottomTabNavigator
 } from 'react-navigation'
+import { StyleSheet} from 'react-native'
+import Icon from "react-native-vector-icons/Feather"
 import Personality from '../components/Personality/Personality'
 import SongsList from '../components/SongsList/SongsList'
 import AnchorRadio from '../components/AnchorRadio/AnchorRadio'
@@ -46,26 +48,48 @@ const BottomMater = createMaterialTopTabNavigator({
         },
         tabStyle:{
           height:39,
+        },
+        labelStyle:{
           lineHeight:39
         },
         indicatorStyle: {
-            backgroundColor: 'red',
+          backgroundColor: 'red',
         }
     }
 })
 
 const NavigationConfig = createBottomTabNavigator({
   发现音乐: {
-    screen: BottomMater
+    screen: BottomMater,
+    navigationOptions:{
+      tabBarIcon:({focused})=>{
+        return focused ? rendIcon('search','iconFocus') : rendIcon('search','iconBlur')
+      }
+    }
   },
   我的音乐: {
     screen: Leaderboard,
+    navigationOptions:{
+      tabBarIcon:({focused})=>{
+        return focused ? rendIcon('music','iconFocus') : rendIcon('music','iconBlur')
+      }
+    }
   },
   朋友: {
     screen: Leaderboard,
+    navigationOptions:{
+      tabBarIcon:({focused})=>{
+        return focused ? rendIcon('users','iconFocus') : rendIcon('users','iconBlur')
+      }
+    }
   },
   账号: {
     screen: Leaderboard,
+    navigationOptions:{
+      tabBarIcon:({focused})=>{
+        return focused ? rendIcon('user','iconFocus') : rendIcon('user','iconBlur')
+      }
+    }
   }
 },{
   tabBarOptions:{
@@ -76,13 +100,13 @@ const NavigationConfig = createBottomTabNavigator({
     },
     tabStyle:{
       height:54,
-      lineHeight:54
-    },
-    labelStyle:{
-      height:38,
     },
     indicatorStyle:{
       backgroundColor:'red'
+    },
+    labelStyle:{
+      height:26,
+      lineHeight:15
     }
   }
 })
@@ -99,3 +123,25 @@ class Navigation extends Component {
 }
 
 export default Navigation;
+
+const styles = StyleSheet.create({
+  iconFocus:{
+      width: 20,
+      height: 20,
+      fontSize: 15,
+      color:'red',
+      lineHeight:25
+  },
+  iconBlur:{
+    width: 20,
+    height: 20,
+    fontSize: 15,
+    color:'gray',
+    lineHeight:25
+  }
+})
+
+
+function rendIcon(icon,_class){
+  return  <Icon name={icon} style={styles[_class]}/>
+}

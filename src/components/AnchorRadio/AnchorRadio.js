@@ -1,5 +1,6 @@
 import { View,Text } from 'react-native'
 import React,{ Component } from 'react'
+import Icon from "react-native-vector-icons/AntDesign"
 
 class AnchorRadio extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class AnchorRadio extends Component {
     return (
       <View>
         <Text>AnchorRadio</Text>
+        <Icon name="plussquareo"/>
       </View>
     );
   }
