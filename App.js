@@ -9,14 +9,15 @@
 
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import Login from './src/components/Login/Login'
 
 import Navigation from './src/Navigator/Navigation'
 
 export default class App extends Component{
   render() {
+    const isLogin = 0
     return (
-       <Navigation/>
+       isLogin ? <Navigation/> : <Login/>
     );
   }
 }

@@ -3,7 +3,7 @@ import {
     createMaterialTopTabNavigator,
     createBottomTabNavigator
 } from 'react-navigation'
-import { StyleSheet} from 'react-native'
+import { StyleSheet,View,Text} from 'react-native'
 import Icon from "react-native-vector-icons/Feather"
 import Personality from '../components/Personality/Personality'
 import SongsList from '../components/SongsList/SongsList'
