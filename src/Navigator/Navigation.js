@@ -12,6 +12,7 @@ import AnchorRadio from '../components/AnchorRadio/AnchorRadio'
 import Leaderboard from '../components/Leaderboard/Leaderboard'
 import React, { Component } from 'react'
 import Login from '../components/Login/Login'
+import PhoneLogin from '../components/Login/PhoneLogin'
 
 const BottomMater = createMaterialTopTabNavigator({
   个性推荐: {
@@ -113,9 +114,37 @@ const NavigationConfig = createBottomTabNavigator({
   }
 })
 
-const LoginNav = createStackNavigator({
+const LoginConfig = createStackNavigator({
   Login:{
     screen:Login,
+    navigationOptions:{
+      header:null
+    }
+  },
+  PhoneLoginNav:{
+    screen:PhoneLogin,
+    navigationOptions:{
+      headerTitle:"手机号登录",
+      headerTitleStyle:{
+        alignSelf: 'center',
+        textAlign:'center',
+        flex:1,
+        fontSize:16,
+        fontFamily: 'Microsoft YaHei',
+        color:'rgb(255, 255, 255)',
+      },
+      headerStyle:{
+        backgroundColor:'rgb(206,19,33)'
+      },
+      headerRight:React.createElement(View,null,null),
+      headerTintColor:'white'
+    }
+  }
+})
+
+const PhoneLoginNav = createStackNavigator({
+  Login:{
+    screen:LoginConfig,
     navigationOptions:{
       header:null
     }
@@ -128,7 +157,7 @@ const LoginNav = createStackNavigator({
   }
 })
 
-const AppContainer = createAppContainer(LoginNav)
+const AppContainer = createAppContainer(PhoneLoginNav)
 
 class Navigation extends Component {
 

@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native'
-import { Avatar, Button } from 'react-native-elements'
+import { Avatar, Button , SocialIcon } from 'react-native-elements'
 import React, { Component } from 'react'
 
 class Login extends Component {
@@ -25,7 +25,7 @@ class Login extends Component {
                   buttonStyle={Object.assign({ marginTop: 60 }, styles.main_button)}
                   type="outline"
                   titleStyle={{ color: 'red' }}
-                  onPress={()=> this.props.navigation.navigate('NavigationConfig')}
+                  onPress={()=> this.props.navigation.navigate('PhoneLoginNav')}
                 />
               </View>
               <View>
@@ -39,20 +39,24 @@ class Login extends Component {
             </View>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'row' }}>
               <View style={styles.footer_list}>
-                <Avatar rounded />
-                <Text style={{ fontSize: 12 }}>微信</Text>
+                <SocialIcon
+                type='twitter'
+                />
               </View>
               <View style={styles.footer_list}>
-                <Avatar rounded />
-                <Text style={{ fontSize: 12 }}>QQ</Text>
+                <SocialIcon
+                 type='gitlab'
+                />
               </View>
               <View style={styles.footer_list}>
-                <Avatar rounded />
-                <Text style={{ fontSize: 12 }}>新浪微博</Text>
+                <SocialIcon
+                type='facebook'
+                />
               </View>
               <View style={styles.footer_list}>
-                <Avatar rounded />
-                <Text style={{ fontSize: 12 }}>网易邮箱</Text>
+                <SocialIcon
+                type='codepen'
+                />
               </View>
             </View>
           </View>
