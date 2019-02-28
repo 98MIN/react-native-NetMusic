@@ -8,16 +8,18 @@
  */
 
 
-import React, {Component} from 'react';
+import React, {
+    Component
+} from 'react'
 import Login from './src/components/Login/Login'
-
 import Navigation from './src/Navigator/Navigation'
 
-export default class App extends Component{
-  render() {
-    const isLogin = 1
-    return (
-       isLogin ? <Navigation/> : <Login/>
-    );
-  }
+export default class App extends Component {
+    render() {
+        const isLogin = 1
+
+        return (
+            isLogin ? < Navigation /> : < Login />
+        );
+    }
 }
