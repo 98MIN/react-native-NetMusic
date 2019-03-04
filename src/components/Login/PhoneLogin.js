@@ -19,7 +19,7 @@ class PhoneLogin extends Component {
   handleLogin = () => {
     const {navigation,Store} = this.props
     const { phoneNumber,password } = this.state
-    
+
       setAxios(`login/cellphone?phone=${phoneNumber}&password=${password}`)
       .then((res)=>{
        if(res.code !== 200){

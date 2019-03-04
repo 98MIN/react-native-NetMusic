@@ -13,6 +13,7 @@ import Leaderboard from '../components/Leaderboard/Leaderboard'
 import React, { Component } from 'react'
 import Login from '../components/Login/Login'
 import PhoneLogin from '../components/Login/PhoneLogin'
+import Start from '../components/Login/Start'
 import Account from '../components/account/Account'
 
 const BottomMater = createMaterialTopTabNavigator({
@@ -116,6 +117,12 @@ const NavigationConfig = createBottomTabNavigator({
 })
 
 const LoginConfig = createStackNavigator({
+  Start:{
+    screen:Start,
+    navigationOptions : {
+      header : null
+    }
+  },
   Login:{
     screen:Login,
     navigationOptions:{
@@ -141,10 +148,12 @@ const LoginConfig = createStackNavigator({
       headerTintColor:'white'
     }
   }
+},{
+  // initialRouteName:'StartNav'
 })
 
 const PhoneLoginNav = createStackNavigator({
-  Login:{
+  LoginConfig:{
     screen:LoginConfig,
     navigationOptions:{
       header:null
@@ -157,7 +166,7 @@ const PhoneLoginNav = createStackNavigator({
     }
   }
 },{
-  initialRouteName:'NavigationConfig'
+  // initialRouteName:'NavigationConfig'
 })
 
 const AppContainer = createAppContainer(PhoneLoginNav)
