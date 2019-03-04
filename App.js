@@ -8,15 +8,13 @@
  */
 
 
-import React, {
-    Component
-} from 'react'
+import React, { Component } from 'react'
 import Navigation from './src/Navigator/Navigation'
 import Store from './store/Store'
-import {Provider} from 'mobx-react'
+import { Provider } from 'mobx-react'
 
 export default class App extends Component {
-    
+
     render() {
 
         return (
