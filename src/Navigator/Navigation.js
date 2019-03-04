@@ -43,6 +43,7 @@ const BottomMater = createMaterialTopTabNavigator({
   }
 }, {
     initialRouteName: "个性推荐",
+    lazy:true,
     tabBarOptions: {
         scrollEnabled: false,
         upperCaseLabel: true,
@@ -148,8 +149,6 @@ const LoginConfig = createStackNavigator({
       headerTintColor:'white'
     }
   }
-},{
-  // initialRouteName:'StartNav'
 })
 
 const PhoneLoginNav = createStackNavigator({
@@ -166,7 +165,7 @@ const PhoneLoginNav = createStackNavigator({
     }
   }
 },{
-  // initialRouteName:'NavigationConfig'
+  initialRouteName:'NavigationConfig'
 })
 
 const AppContainer = createAppContainer(PhoneLoginNav)

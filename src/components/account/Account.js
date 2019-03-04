@@ -72,6 +72,12 @@ class Account extends Component {
     })
   }
 
+  handleSignOut = () => {
+    setAxios('logout').then(v=>{
+      console.log(v)
+    })
+  }
+
   keyExtractor = (item, index) => index.toString()
 
   renderItem = ({ item,index }) => <ListItem title={item.title} leftIcon={{ name: item.leftIcon }} rightIcon={{ name: 'chevron-right' }} />
@@ -162,6 +168,22 @@ class Account extends Component {
             SectionSeparatorComponent={() => <View style={{ marginBottom: 5 }} />}
           />
         </View>
+        <View style={styles.footer}>
+          <Button
+          ViewComponent={LinearGradient}
+          linearGradientProps={{
+            colors: ['#cb111f','#ce1321'],
+            start: { x: 0, y: 0.5 },
+            end: { x: 1, y: 0.5 },
+          }}
+           titleStyle={{
+             color:'white',
+             letterSpacing:15
+           }}
+           title="退出"
+           onPress={this.handleSignOut}
+          />
+        </View>
       </ScrollView>
     )
   }
@@ -192,6 +214,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  footer: {
+    width:"100%",
+    marginTop:5,
+    marginBottom:10
+  }
 })
 
 export default Account

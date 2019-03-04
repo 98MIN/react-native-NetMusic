@@ -24,6 +24,7 @@ class Start extends Component {
 
   render() {
     const { height,width } = Dimensions.get('window')
+
     return (
       <View>
         <Image source={require('../../assets/timg.jpg')} style={{height,width}}/>
