@@ -1,8 +1,9 @@
 import { View, Text, Image, StyleSheet } from 'react-native'
-import { Avatar } from 'react-native-elements'
+import { Avatar  } from 'react-native-elements'
 import React, { Component } from 'react'
 import Swiper from 'react-native-swiper'
 import setAxios from '../../utils/axios'
+import Icon from 'react-native-vector-icons/Feather'
 
 class Home extends Component {
   constructor(props) {
@@ -22,14 +23,9 @@ class Home extends Component {
     setAxios('banner').then((v) => {
       this.setState({
         bannerImages: v.banners,
-      })
-    })
-
-    setTimeout(() => {
-      this.setState({
         isSwiperShow: true,
       })
-    }, 0)
+    })
   }
   renderSwiper = () => {
     const { bannerImages } = this.state
@@ -57,6 +53,7 @@ class Home extends Component {
   }
   render() {
     const { isSwiperShow } = this.state
+
     return isSwiperShow ? (
       <View>
         <View style={{ height: 124 }}>{this.renderSwiper()}</View>
@@ -71,8 +68,8 @@ class Home extends Component {
 
       </View>
     ) : (
-      <View style={{ height: 200 }}>
-        <Image source={require('../../assets/timg.jpg')} style={styles.bannerImg} />
+      <View style={{ justifyContent:'center',alignItems:'center',flex:1}}>
+        <Icon name={"loader"} size={35}/>
       </View>
     )
   }

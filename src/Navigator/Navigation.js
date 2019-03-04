@@ -165,7 +165,7 @@ const PhoneLoginNav = createStackNavigator({
     }
   }
 },{
-  initialRouteName:'NavigationConfig'
+  // initialRouteName:'NavigationConfig'
 })
 
 const AppContainer = createAppContainer(PhoneLoginNav)
