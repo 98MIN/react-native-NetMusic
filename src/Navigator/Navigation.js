@@ -13,6 +13,7 @@ import Leaderboard from '../components/Leaderboard/Leaderboard'
 import React, { Component } from 'react'
 import Login from '../components/Login/Login'
 import PhoneLogin from '../components/Login/PhoneLogin'
+import Account from '../components/account/Account'
 
 const BottomMater = createMaterialTopTabNavigator({
   个性推荐: {
@@ -86,8 +87,8 @@ const NavigationConfig = createBottomTabNavigator({
       }
     }
   },
-  账号: {
-    screen: Leaderboard,
+  帐号: {
+    screen: Account,
     navigationOptions:{
       tabBarIcon:({focused})=>{
         return focused ? rendIcon('user','iconFocus') : rendIcon('user','iconBlur')
@@ -155,6 +156,8 @@ const PhoneLoginNav = createStackNavigator({
       header:null
     }
   }
+},{
+  // initialRouteName:'NavigationConfig'
 })
 
 const AppContainer = createAppContainer(PhoneLoginNav)

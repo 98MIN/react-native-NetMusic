@@ -1,15 +1,18 @@
 import {
     observable,
-    computed
+    action
 } from 'mobx'
 
 class Store {
-    @observable price = 0;
-    @observable amount = 1;
+    @observable isLogin = false
+    @observable userId = null
 
-    @computed getTotal() {
-        return this.price * this.amount;
+    @action setLogin() {
+        this.isLogin = true
+    }
+    @action setUserId(data){
+        this.userId = data
     }
 }
 
-export default Store
+export default new Store()

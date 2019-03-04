@@ -4,7 +4,10 @@ import { Button,Input } from 'react-native-elements'
 import LinearGradient  from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/Feather'
 import setAxios from '../../utils/axios'
+import {observer,inject} from 'mobx-react'
 
+@observer
+@inject('Store')
 class PhoneLogin extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +16,27 @@ class PhoneLogin extends Component {
       phoneNumber:''
     };
   }
+  handleLogin = () => {
+    const {navigation,Store} = this.props
+    const { phoneNumber,password } = this.state
+    
+      setAxios(`login/cellphone?phone=${phoneNumber}&password=${password}`)
+      .then((res)=>{
+       if(res.code !== 200){
+         Alert.alert(
+          '提示信息',
+          '用户名或密码错误',
+          [
+            {text: '确认'},
+          ],
+          { cancelable: false }
+        )
+       }else{
+         Store.setUserId(res.account.id)
+         Store.setLogin()
+         navigation.navigate('NavigationConfig')
+       }})
+      }
   render() {
     const { phoneNumber,password } = this.state
 
@@ -59,7 +83,7 @@ class PhoneLogin extends Component {
            height:45,
            borderRadius:22.5,
          }}
-         ViewComponent={LinearGradient}
+         ViewComponent={ LinearGradient }
          linearGradientProps={{
           colors: ['#cb111f','#ce1321'],
           start: { x: 0, y: 0.5 },
@@ -68,22 +92,7 @@ class PhoneLogin extends Component {
          titleStyle={{
            color:'white'
          }}
-         onPress={()=>{
-          setAxios(`login/cellphone?phone=${phoneNumber}&password=${password}`).then((res)=>{
-           if(res.code !== 200){
-             Alert.alert(
-              '提示信息',
-              '用户名或密码错误',
-              [
-                {text: '确认'},
-              ],
-              { cancelable: false }
-            )
-           }else{
-             this.props.navigation.navigate('NavigationConfig')
-           }
-          })
-        }}/>
+         onPress={ this.handleLogin }/>
         </View>
         <View style={styles.re_set_password}>
           <Text style={styles.re_set_password_text}>重设密码</Text>

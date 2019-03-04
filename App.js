@@ -11,15 +11,18 @@
 import React, {
     Component
 } from 'react'
-import Login from './src/components/Login/Login'
 import Navigation from './src/Navigator/Navigation'
+import Store from './store/Store'
+import {Provider} from 'mobx-react'
 
 export default class App extends Component {
+    
     render() {
-        const isLogin = 1
 
         return (
-            isLogin ? < Navigation /> : < Login />
+            <Provider Store={Store}>
+                < Navigation />
+            </Provider>
         );
     }
 }

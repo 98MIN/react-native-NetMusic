@@ -1,13 +1,20 @@
 import { View, Text, StyleSheet } from 'react-native'
 import { Avatar, Button , SocialIcon } from 'react-native-elements'
 import React, { Component } from 'react'
+import {observer,inject} from 'mobx-react'
 
+@observer
+@inject('Store')
 class Login extends Component {
   constructor(props) {
     super(props)
   }
   render() {
-    console.log(this.props)
+    const { navigation,Store } = this.props
+
+    if(Store.isLogin){
+      return navigation.navigate('NavigationConfig')
+    }
     return (
       <View>
         <View style={styles.header}>
@@ -25,7 +32,9 @@ class Login extends Component {
                   buttonStyle={Object.assign({ marginTop: 60 }, styles.main_button)}
                   type="outline"
                   titleStyle={{ color: 'red' }}
-                  onPress={()=> this.props.navigation.navigate('PhoneLoginNav')}
+                  onPress={()=> {
+                   navigation.navigate('PhoneLoginNav')
+                  }}
                 />
               </View>
               <View>
