@@ -5,7 +5,7 @@ import { FlatList, StyleSheet, View, TouchableHighlight ,Text, Image } from 'rea
 import { ListItem } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/Feather'
 
-class hotSongs extends Component {
+class HotSongs extends Component {
   constructor(props) {
     super(props);
 
@@ -17,17 +17,18 @@ class hotSongs extends Component {
   getSongsList = () => {
     setAxios('top/list?idx=1').then(v=>{
       const musicInfo = formatterHotSongsList(v.playlist.tracks)
+      const { name ,coverImgUrl ,shareCount ,subscribedCount ,commentCount ,description } = v.playlist
       let pageInfo = {}
 
-      Object.assign( pageInfo,
+      Object.assign(pageInfo,
         { musicInfo ,
-          songListName:v.playlist.name ,
-          coverImgUrl:v.playlist.coverImgUrl,
-          shareCount:v.playlist.shareCount,
-          subscribedCount:v.playlist.subscribedCount,
-          commentCount:v.playlist.commentCount,
-          description: v.playlist.description
-        } )
+          songListName: name ,
+          coverImgUrl: coverImgUrl,
+          shareCount: shareCount,
+          subscribedCount: subscribedCount,
+          commentCount: commentCount,
+          description: description
+        })
 
       this.setState({
         pageInfo,
@@ -58,6 +59,8 @@ class hotSongs extends Component {
       this.getSongsList()
     }else if(routeName === '每日歌曲推荐'){
       this.getDailyPush()
+    }else{
+      console.log('1111')
     }
   }
 
@@ -89,7 +92,7 @@ class hotSongs extends Component {
 
 
   renderIcon = ( iconName, textContent, styles ) => {
-    return(
+    return (
       <View style={styles.wrap_icon_content}>
         <Icon name={ iconName } size={ 25 } color={ 'white' }/>
         <Text style={{ color: 'white' }}>{ textContent }</Text>
@@ -146,7 +149,7 @@ class hotSongs extends Component {
           !index?
           <View style={{ height:180 , justifyContent: 'flex-end',backgroundColor:'rgba(238,238,238,1)' }}>
             <View style={{ width:"100%" , height: 39 ,justifyContent:'center' ,alignItems:'center' }}>
-              <Text>根据你的音乐口味生成，每天6：00更新</Text>
+              <Text>根据你的音乐口味生成，每天6:00更新</Text>
             </View>
           </View>
           :null
@@ -172,11 +175,11 @@ class hotSongs extends Component {
     return (
      isLoading ?
       <FlatList
-        keyExtractor={this.keyExtractor}
-        data={pageInfo.musicInfo}
-        renderItem={routeName === '云音乐热歌榜'?this.renderHotSongsItem:this.renderDailtPushItem}
+        keyExtractor={ this.keyExtractor }
+        data={ pageInfo.musicInfo }
+        renderItem={ routeName === '云音乐热歌榜' ? this.renderHotSongsItem : this.renderDailtPushItem }
       />:
-      <View style={styles.container}>
+      <View style={ styles.container }>
         <Icon name={ 'loader' } size={ 25 }/>
       </View>
     );
@@ -210,4 +213,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default hotSongs;
+export default HotSongs;
