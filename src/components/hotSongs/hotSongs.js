@@ -30,7 +30,7 @@ class hotSongs extends Component {
    * id  音乐id
    */
   handleList = ( musicId, musicName, authorNames, e ) => {
-    this.props.navigation.navigate('playPage',{ musicId, musicName, authorNames })
+    this.props.navigation.navigate('Play',{ musicId, musicName, authorNames })
   }
 
   keyExtractor = (item, index) => index.toString()

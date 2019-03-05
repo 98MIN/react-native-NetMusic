@@ -95,9 +95,6 @@ const Personal = createStackNavigator({
       headerTintColor:'white'
     }
   },
-  'playPage':{
-    screen:PlayPage,
-  }
 })
 
 const NavigationConfig = createBottomTabNavigator({
@@ -153,6 +150,15 @@ const NavigationConfig = createBottomTabNavigator({
   }
 })
 
+const PlayConfig = createStackNavigator({
+  'Bottom':{screen:NavigationConfig,navigationOptions:{
+    header:null
+  }},
+  'Play':{
+    screen:PlayPage
+  }
+})
+
 const LoginConfig = createStackNavigator({
   Start:{
     screen:Start,
@@ -195,13 +201,13 @@ const PhoneLoginNav = createStackNavigator({
     }
   },
   NavigationConfig:{
-    screen:NavigationConfig,
+    screen:PlayConfig,
     navigationOptions:{
       header:null
     }
   }
 },{
-  initialRouteName:'NavigationConfig'
+  // initialRouteName:'NavigationConfig'
 })
 
 const AppContainer = createAppContainer(PhoneLoginNav)
