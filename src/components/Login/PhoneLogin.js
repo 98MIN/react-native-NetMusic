@@ -17,8 +17,8 @@ class PhoneLogin extends Component {
     };
   }
   handleLogin = () => {
-    const {navigation,Store} = this.props
-    const { phoneNumber,password } = this.state
+    const { navigation, Store } = this.props
+    const { phoneNumber, password } = this.state
 
       setAxios(`login/cellphone?phone=${phoneNumber}&password=${password}`)
       .then((res)=>{
@@ -63,7 +63,7 @@ class PhoneLogin extends Component {
        <Input
         value={password}
         secureTextEntry={true}
-        placeholder='设置登录密码，不少于六位'
+        placeholder='请输入密码'
         leftIcon={
           <Icon
             name='lock'

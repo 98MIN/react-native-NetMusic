@@ -59,7 +59,8 @@ class Home extends Component {
         <View style={{ height: 124 }}>{this.renderSwiper()}</View>
           <View style={styles.boxWrap}>
             {this.boxs.map((v,index)=>{
-             return (<View style={styles.box} key={index}>
+             return (
+             <View style={styles.box} key={index} onTouchStart={()=> this.props.navigation.navigate('hotSongs')}>
                 <Avatar rounded size={56}  icon={{name: v.name}} overlayContainerStyle={{backgroundColor:'#cd1220'}} />
                 <Text>{v.title}</Text>
               </View>)
@@ -69,7 +70,7 @@ class Home extends Component {
       </View>
     ) : (
       <View style={{ justifyContent:'center',alignItems:'center',flex:1}}>
-        <Icon name={"loader"} size={35}/>
+        <Icon name={"loader"} size={25}/>
       </View>
     )
   }

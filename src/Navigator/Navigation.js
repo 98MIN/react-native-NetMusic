@@ -15,12 +15,17 @@ import Login from '../components/Login/Login'
 import PhoneLogin from '../components/Login/PhoneLogin'
 import Start from '../components/Login/Start'
 import Account from '../components/account/Account'
+import HotSongs from '../components/hotSongs/HotSongs'
+import PlayPage from '../components/play/PlayPage'
+
+
 
 const BottomMater = createMaterialTopTabNavigator({
   个性推荐: {
       screen: Personality,
       navigationOptions: {
           tabBarColor: '#3472EE',
+          header:null
       }
   },
   歌单: {
@@ -53,10 +58,10 @@ const BottomMater = createMaterialTopTabNavigator({
             backgroundColor: 'white',
         },
         tabStyle:{
-          height:39,
+          height:42,
         },
         labelStyle:{
-          lineHeight:39
+          lineHeight:42
         },
         indicatorStyle: {
           backgroundColor: 'red',
@@ -64,9 +69,40 @@ const BottomMater = createMaterialTopTabNavigator({
     }
 })
 
+const Personal = createStackNavigator({
+  'Person':{
+    screen:BottomMater,
+    navigationOptions:{
+      header:null
+    }
+  },
+  'hotSongs':{
+    screen:HotSongs,
+    navigationOptions:{
+      headerTitle:"排行榜",
+      headerTitleStyle:{
+        alignSelf: 'center',
+        textAlign:'center',
+        flex:1,
+        fontSize:16,
+        fontFamily: 'Microsoft YaHei',
+        color:'rgb(255, 255, 255)',
+      },
+      headerStyle:{
+        backgroundColor:'rgb(206,19,33)'
+      },
+      headerRight:React.createElement(View,null,null),
+      headerTintColor:'white'
+    }
+  },
+  'playPage':{
+    screen:PlayPage,
+  }
+})
+
 const NavigationConfig = createBottomTabNavigator({
   发现音乐: {
-    screen: BottomMater,
+    screen: Personal,
     navigationOptions:{
       tabBarIcon:({focused})=>{
         return focused ? rendIcon('search','iconFocus') : rendIcon('search','iconBlur')
@@ -165,7 +201,7 @@ const PhoneLoginNav = createStackNavigator({
     }
   }
 },{
-  // initialRouteName:'NavigationConfig'
+  initialRouteName:'NavigationConfig'
 })
 
 const AppContainer = createAppContainer(PhoneLoginNav)
