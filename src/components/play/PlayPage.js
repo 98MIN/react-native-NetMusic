@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text} from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
+import setAxios from '../../utils/axios'
 
 class PlayPage extends Component {
   constructor(props) {
@@ -11,6 +12,11 @@ class PlayPage extends Component {
 
   componentDidMount(){
     console.log(this.props)
+    const { musicId } = this.props.navigation.state.params
+
+    setAxios(`song/detail?ids=${musicId}`).then(v=>{
+      console.log(v)
+    })
   }
 
   static navigationOptions =({ navigation }) => {

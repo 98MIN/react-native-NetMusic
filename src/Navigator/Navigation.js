@@ -21,26 +21,26 @@ import PlayPage from '../components/play/PlayPage'
 
 
 const BottomMater = createMaterialTopTabNavigator({
-  个性推荐: {
+  '个性推荐': {
       screen: Personality,
       navigationOptions: {
           tabBarColor: '#3472EE',
           header:null
       }
   },
-  歌单: {
+  '歌单': {
       screen: SongsList,
       navigationOptions: {
           tabBarColor: '#3472EE',
       }
   },
-  主播电台: {
+  '主播电台': {
       screen: AnchorRadio,
       navigationOptions: {
           tabBarColor: '#3472EE',
       }
   },
-  排行榜: {
+  '排行榜': {
       screen: Leaderboard,
       navigationOptions: {
           tabBarColor: '#3472EE',
@@ -76,29 +76,16 @@ const Personal = createStackNavigator({
       header:null
     }
   },
-  'hotSongs':{
-    screen:HotSongs,
-    navigationOptions:{
-      headerTitle:"排行榜",
-      headerTitleStyle:{
-        alignSelf: 'center',
-        textAlign:'center',
-        flex:1,
-        fontSize:16,
-        fontFamily: 'Microsoft YaHei',
-        color:'rgb(255, 255, 255)',
-      },
-      headerStyle:{
-        backgroundColor:'rgb(206,19,33)'
-      },
-      headerRight:React.createElement(View,null,null),
-      headerTintColor:'white'
-    }
+  '云音乐热歌榜':{
+    screen: HotSongs,
   },
+  '每日歌曲推荐':{
+    screen: HotSongs,
+  }
 })
 
 const NavigationConfig = createBottomTabNavigator({
-  发现音乐: {
+  '发现音乐': {
     screen: Personal,
     navigationOptions:{
       tabBarIcon:({focused})=>{
@@ -106,7 +93,7 @@ const NavigationConfig = createBottomTabNavigator({
       }
     }
   },
-  我的音乐: {
+  '我的音乐': {
     screen: Leaderboard,
     navigationOptions:{
       tabBarIcon:({focused})=>{
@@ -114,7 +101,7 @@ const NavigationConfig = createBottomTabNavigator({
       }
     }
   },
-  朋友: {
+  '朋友': {
     screen: Leaderboard,
     navigationOptions:{
       tabBarIcon:({focused})=>{
@@ -122,7 +109,7 @@ const NavigationConfig = createBottomTabNavigator({
       }
     }
   },
-  帐号: {
+  '帐号': {
     screen: Account,
     navigationOptions:{
       tabBarIcon:({focused})=>{
@@ -151,28 +138,31 @@ const NavigationConfig = createBottomTabNavigator({
 })
 
 const PlayConfig = createStackNavigator({
-  'Bottom':{screen:NavigationConfig,navigationOptions:{
-    header:null
-  }},
+  'Bottom':{
+    screen:NavigationConfig,
+    navigationOptions:{
+      header:null
+    }
+  },
   'Play':{
     screen:PlayPage
   }
 })
 
 const LoginConfig = createStackNavigator({
-  Start:{
+  'Start':{
     screen:Start,
     navigationOptions : {
       header : null
     }
   },
-  Login:{
+  'Login':{
     screen:Login,
     navigationOptions:{
       header:null
     }
   },
-  PhoneLoginNav:{
+  'PhoneLoginNavigation':{
     screen:PhoneLogin,
     navigationOptions:{
       headerTitle:"手机号登录",
@@ -194,20 +184,20 @@ const LoginConfig = createStackNavigator({
 })
 
 const PhoneLoginNav = createStackNavigator({
-  LoginConfig:{
+  'LoginConfig':{
     screen:LoginConfig,
     navigationOptions:{
       header:null
     }
   },
-  NavigationConfig:{
+  'NavigationConfig':{
     screen:PlayConfig,
     navigationOptions:{
       header:null
     }
   }
 },{
-  // initialRouteName:'NavigationConfig'
+  initialRouteName:'NavigationConfig'
 })
 
 const AppContainer = createAppContainer(PhoneLoginNav)

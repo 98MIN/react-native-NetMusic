@@ -14,9 +14,9 @@ class Home extends Component {
     }
 
     this.boxs = [
-      {name:'radio',title:'私人FM'},
-      {name:'account-box',title:'每日歌曲推荐'},
-      {name:'assessment',title:'云音乐热歌榜'}
+      {name: 'radio', title: '私人FM'},
+      {name: 'account-box', title: '每日歌曲推荐', headerTitle:'每日歌曲推荐'},
+      {name: 'assessment', title: '云音乐热歌榜', headerTitle:'排行榜'}
     ]
   }
   componentDidMount() {
@@ -60,7 +60,7 @@ class Home extends Component {
           <View style={styles.boxWrap}>
             {this.boxs.map((v,index)=>{
              return (
-             <View style={styles.box} key={index} onTouchStart={()=> this.props.navigation.navigate('hotSongs')}>
+             <View style={styles.box} key={index} onTouchStart={()=> this.props.navigation.navigate(v.title, { headerTitle: v.headerTitle })}>
                 <Avatar rounded size={56}  icon={{name: v.name}} overlayContainerStyle={{backgroundColor:'#cd1220'}} />
                 <Text>{v.title}</Text>
               </View>)

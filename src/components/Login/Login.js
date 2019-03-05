@@ -33,7 +33,7 @@ class Login extends Component {
                   type="outline"
                   titleStyle={{ color: 'red' }}
                   onPress={()=> {
-                   navigation.navigate('PhoneLoginNav')
+                   navigation.navigate('PhoneLoginNavigation')
                   }}
                 />
               </View>

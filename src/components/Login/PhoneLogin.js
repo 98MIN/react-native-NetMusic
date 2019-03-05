@@ -16,6 +16,10 @@ class PhoneLogin extends Component {
       phoneNumber:''
     };
   }
+
+  componentDidMount(){
+    console.log(2222)
+  }
   handleLogin = () => {
     const { navigation, Store } = this.props
     const { phoneNumber, password } = this.state
