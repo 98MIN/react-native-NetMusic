@@ -1,9 +1,10 @@
 import React , { Component } from 'react' //#endregion
 import setAxios from '../../utils/axios'
 import { formatterHotSongsList, formatterDailyPushSongs } from './hotSongsAdapter'
-import { FlatList, StyleSheet, View, TouchableHighlight ,Text, Image } from 'react-native'
+import { FlatList, StyleSheet, View, TouchableHighlight ,Text, Image ,ImageBackground } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/Feather'
+import Loading from '../Loading/Loading'
 
 class HotSongs extends Component {
   constructor(props) {
@@ -91,9 +92,9 @@ class HotSongs extends Component {
   keyExtractor = (item, index) => index.toString()
 
 
-  renderIcon = ( iconName, textContent, styles ) => {
+  renderIcon = ( iconName, textContent, styles ,key ) => {
     return (
-      <View style={styles.wrap_icon_content}>
+      <View style={styles.wrap_icon_content} key={key}>
         <Icon name={ iconName } size={ 25 } color={ 'white' }/>
         <Text style={{ color: 'white' }}>{ textContent }</Text>
       </View>
@@ -125,7 +126,7 @@ class HotSongs extends Component {
               </View>
             </View>
             <View style={styles.wrap_icon}>
-              { iconData.map(v=>  this.renderIcon(v.iconName, v.text, styles)) }
+              { iconData.map((v,index)=>  this.renderIcon(v.iconName, v.text, styles, index)) }
             </View>
           </View>
           :null
@@ -147,11 +148,13 @@ class HotSongs extends Component {
       <View>
         {
           !index?
-          <View style={{ height:180 , justifyContent: 'flex-end',backgroundColor:'rgba(238,238,238,1)' }}>
-            <View style={{ width:"100%" , height: 39 ,justifyContent:'center' ,alignItems:'center' }}>
-              <Text>根据你的音乐口味生成，每天6:00更新</Text>
+          <ImageBackground source={{ uri:item.picUrl }} style={{ width: "100%",height: 180 }}>
+            <View style={{ height:180 , justifyContent: 'flex-end' }}>
+              <View style={{ width:"100%" , height: 39 ,justifyContent:'center' ,alignItems:'center' }}>
+                <Text style={{color:"white"}}>根据你的音乐口味生成，每天6:00更新</Text>
+              </View>
             </View>
-          </View>
+          </ImageBackground>
           :null
         }
         <ListItem
@@ -169,8 +172,7 @@ class HotSongs extends Component {
 
   render() {
     const { pageInfo ,isLoading } = this.state
-    const { navigation: { state: { routeName } } } = this.props
-
+    const { navigation: { state: { routeName } } } = this.props  
 
     return (
      isLoading ?
@@ -179,9 +181,7 @@ class HotSongs extends Component {
         data={ pageInfo.musicInfo }
         renderItem={ routeName === '云音乐热歌榜' ? this.renderHotSongsItem : this.renderDailtPushItem }
       />:
-      <View style={ styles.container }>
-        <Icon name={ 'loader' } size={ 25 }/>
-      </View>
+      <Loading/>
     );
   }
 }
