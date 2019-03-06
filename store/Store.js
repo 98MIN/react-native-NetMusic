@@ -9,6 +9,7 @@ class Store {
     @observable musicTime = null
     @observable musicUrl = null
     @observable musicId = null
+    @observable musicPic = null
 
     @action setLogin() {
         this.isLogin = true
