@@ -16,8 +16,8 @@ class HotSongs extends Component {
   }
   getSongsList = () => {
     setAxios('top/list?idx=1').then(v=>{
-      const musicInfo = formatterHotSongsList(v.playlist.tracks)
-      const { name ,coverImgUrl ,shareCount ,subscribedCount ,commentCount ,description } = v.playlist
+      const { name ,coverImgUrl ,shareCount ,subscribedCount ,commentCount ,description ,tracks } = v.playlist
+      const musicInfo = formatterHotSongsList(tracks)
       let pageInfo = {}
 
       Object.assign(pageInfo,

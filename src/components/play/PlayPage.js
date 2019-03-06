@@ -14,7 +14,7 @@ class PlayPage extends Component {
     console.log(this.props)
     const { musicId } = this.props.navigation.state.params
 
-    setAxios(`song/detail?ids=${musicId}`).then(v=>{
+    setAxios(`music/url?id=${musicId}`).then(v=>{
       console.log(v)
     })
   }
