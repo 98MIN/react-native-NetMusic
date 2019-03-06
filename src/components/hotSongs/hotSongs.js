@@ -38,17 +38,19 @@ class HotSongs extends Component {
     })
   }
   getDailyPush = () => {
+    console.log(33)
     setAxios('recommend/songs').then(v=>{
       const musicInfo = formatterDailyPushSongs(v.recommend)
       let pageInfo = {}
 
+      console.log(v)
       Object.assign( pageInfo, { musicInfo } )
 
       this.setState({
         pageInfo,
         isLoading: true
       })
-    })
+    }).catch(v=>console.log(v))
   }
   componentDidMount(){
     const { navigation: { state: { routeName } } } = this.props

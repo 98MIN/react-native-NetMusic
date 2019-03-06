@@ -22,7 +22,7 @@ export function formatterDailyPushSongs(data){
       picUrl: v.album.picUrl,
       songName: v.name,
       musicId: v.id,
-      musicTime: v.bMusic.playTime,
+      musicTime: v.bMusic && v.bMusic.playTime,
       authorNames: v.artists.map(item=> item.name).join(' · '),
       albumName: v.album.name
     })
