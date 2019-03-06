@@ -5,7 +5,7 @@ import { StyleSheet, View, Text, ScrollView, SectionList } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { observer, inject } from 'mobx-react'
 import setAxios from '../../utils/axios'
-import cityFormatter from '../../utils/cityFormatter'
+import { cityFormatter } from '../../utils/utils'
 
 @observer
 @inject('Store')

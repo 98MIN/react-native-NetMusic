@@ -3,6 +3,7 @@ import { View, Text} from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import setAxios from '../../utils/axios'
 import { observer, inject } from 'mobx-react'
+import { lyricFormatter } from '../../utils/utils'
 
 @observer
 @inject('Store')
@@ -38,10 +39,10 @@ class PlayPage extends Component {
     setAxios(`lyric?id=${params.musicId}`).then(v=>{
       const { lyricUser, lrc:{ lyric } } = v
 
-      console.log(lyricUser)
+
       this.setState({
         lyricInfo : {
-          lyric: lyric.replace(/[\r\n]/gi,'<br>').split('<br>'),
+          lyric: lyricFormatter(lyric),
           lyricContributor:{
             userName: lyricUser.nickname,
             userId: lyricUser.userid
