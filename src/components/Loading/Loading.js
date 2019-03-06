@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import propTypes from 'prop-types'
 import Icon from 'react-native-vector-icons/Feather'
-import { StyleSheet, Animated, Easing, View, Text } from 'react-native'
+import { StyleSheet, Animated, Easing, View } from 'react-native'
 
 class Loading extends Component{
     constructor(props){
@@ -8,6 +9,16 @@ class Loading extends Component{
         this.spinValue = new Animated.Value(0)
         this.timer = true
     }
+
+    static defaultProps = {
+      color: 'black',
+      size: 25
+    }
+    static propTypes = {
+      color: propTypes.string,
+      size: propTypes.number
+    }
+
     spin = () => {
         this.spinValue.setValue(0)
         Animated.timing(this.spinValue,{
@@ -24,6 +35,7 @@ class Loading extends Component{
     }
 
     render(){
+        const { color, size } = this.props
         const spin = this.spinValue.interpolate({
             inputRange: [0, 1],//输入值
             outputRange: ['0deg', '360deg'] //输出值
@@ -32,7 +44,7 @@ class Loading extends Component{
           return(
             <View style={styles.container}>
                 <Animated.Text style={{ transform:[{ rotate: spin }] }}>
-                    <Icon name={ 'loader' } size={ 25 } color={ 'red' }/>
+                    <Icon name={ 'loader' } size={ size } color={ color }/>
                 </Animated.Text>
             </View>
           )

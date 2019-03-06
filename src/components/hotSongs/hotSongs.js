@@ -39,7 +39,6 @@ class HotSongs extends Component {
   }
   getDailyPush = () => {
     setAxios('recommend/songs').then(v=>{
-      console.log(v)
       const musicInfo = formatterDailyPushSongs(v.recommend)
       let pageInfo = {}
 
@@ -48,8 +47,6 @@ class HotSongs extends Component {
       this.setState({
         pageInfo,
         isLoading: true
-      },()=>{
-        console.log(this.state.pageInfo)
       })
     })
   }
@@ -85,8 +82,8 @@ class HotSongs extends Component {
     }
   }
 
-  handleList = ( musicId, musicName, authorNames, e ) => {
-    this.props.navigation.navigate('Play',{ musicId, musicName, authorNames })
+  handleList = ( musicId, musicName, authorNames, musicTime, picUrl, e ) => {
+    this.props.navigation.navigate('Play',{ musicId, musicName, authorNames, musicTime, picUrl })
   }
 
   keyExtractor = (item, index) => index.toString()
@@ -139,7 +136,7 @@ class HotSongs extends Component {
         leftAvatar={{ source: { uri: item.picUrl } }}
         rightIcon={{ name: 'chevron-right' }}
         containerStyle={{ borderBottomWidth: 1,borderBottomColor: '#ccc' }}
-        onPress={this.handleList.bind( this, item.musicId, item.songName, item.authorNames )}
+        onPress={this.handleList.bind( this, item.musicId, item.songName, item.authorNames, item.musicTime, item.picUrl )}
       />
     </View>
   )}
@@ -165,14 +162,14 @@ class HotSongs extends Component {
         leftAvatar={{ source: { uri: item.picUrl } }}
         rightIcon={{ name: 'chevron-right' }}
         containerStyle={{ borderBottomWidth: 1,borderBottomColor: '#ccc' }}
-        onPress={this.handleList.bind( this, item.musicId, item.songName, item.authorNames )}
+        onPress={this.handleList.bind( this, item.musicId, item.songName, item.authorNames, item.musicTime, item.picUrl )}
       />
     </View>)
   }
 
   render() {
     const { pageInfo ,isLoading } = this.state
-    const { navigation: { state: { routeName } } } = this.props  
+    const { navigation: { state: { routeName } } } = this.props
 
     return (
      isLoading ?
