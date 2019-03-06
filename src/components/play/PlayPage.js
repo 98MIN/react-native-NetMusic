@@ -29,7 +29,6 @@ class PlayPage extends Component {
     const { Store,  navigation: { state: { params }, addListener }  } = this.props
 
     addListener('didFocus',async payload => {
-
       await setAxios(`music/url?id=${params.musicId}`).then(v=>{
         let musicInfo = {}
 
@@ -79,7 +78,7 @@ class PlayPage extends Component {
     }
   }
   render() {
-    const { picUrl } = this.props.Store
+    const {  navigation: { state: { params : { picUrl } } }  } = this.props
 
     return (
       <Audio picUrl={ picUrl }/>

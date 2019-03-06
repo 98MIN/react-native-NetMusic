@@ -8,8 +8,9 @@ class Audio extends Component {
     this.state = {  };
   }
   render() {
-    console.log(this.props)
     const { picUrl } = this.props
+
+
     return (
       <View style={styles.container}>
         <View style={styles.record_Warpper}>
