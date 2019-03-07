@@ -1,3 +1,5 @@
+import * as _ from 'lodash'
+
 export function formatterHotSongsList(data){
   let musicInfo = []
 
@@ -19,12 +21,12 @@ export function formatterDailyPushSongs(data){
 
   data.map(v=>{
     musicInfo.push({
-      picUrl: v.album.picUrl,
+      picUrl: _.get(v,'album.picUrl'),
       songName: v.name,
       musicId: v.id,
-      musicTime: v.bMusic && v.bMusic.playTime,
-      authorNames: v.artists.map(item=> item.name).join(' · '),
-      albumName: v.album.name
+      musicTime: _.get(v,'bMusic.playTime'),
+      authorNames: _.get(v,'artists','[]').map(item=> item.name).join(' · '),
+      albumName: _.get(v,'album.name')
     })
   })
 

@@ -15,7 +15,7 @@ import Login from '../components/Login/Login'
 import PhoneLogin from '../components/Login/PhoneLogin'
 import Start from '../components/Login/Start'
 import Account from '../components/account/Account'
-import HotSongs from '../components/hotSongs/HotSongs'
+import HotSongs from '../components/HotSongs/HotSongs'
 import PlayPage from '../components/play/PlayPage'
 
 
@@ -197,7 +197,7 @@ const PhoneLoginNav = createStackNavigator({
     }
   }
 },{
-  // initialRouteName:'NavigationConfig'
+  initialRouteName:'NavigationConfig'
 })
 
 const AppContainer = createAppContainer(PhoneLoginNav)
