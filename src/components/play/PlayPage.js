@@ -78,7 +78,7 @@ class PlayPage extends Component {
     }
   }
   render() {
-    const {  navigation, Store: {picUrl} } = this.props
+    const {  navigation, Store: { picUrl } } = this.props
 
     return (
       <Audio picUrl={ picUrl } navigation={navigation}/>

@@ -46,10 +46,28 @@ class PlayBar extends Component {
     })
   }
 
+  componentDidMount(){
+    const { navigation } = this.props
+
+    navigation.addListener('didBlur',()=>{
+      this.soundFirst = true
+      this.music.release()
+    })
+  }
+
   handlePlay = () => {
     const { Store : { musicTime } } = this.props
+    const { playedTime: prevPlayedTime } = this.state
 
-    this.music.play(() => this.music.release())
+    if(prevPlayedTime >= ceilTime(musicTime)){
+      const playedTime = 0
+
+      this.setState({
+        playedTime
+      })
+    }
+
+    this.music.play()
     clearInterval(this.timer)
 
     this.timer = setInterval(() => {
@@ -59,6 +77,7 @@ class PlayBar extends Component {
       if(prevPlayedTime >= ceilTime(musicTime)){
         clearInterval(this.timer)
         this.handleUpdatePlaying(false)
+        this.music.stop()
         return
       }
 
@@ -69,17 +88,18 @@ class PlayBar extends Component {
   }
 
   handlePause = () => {
-    this.music.stop()
+    this.music.pause()
     clearInterval(this.timer)
   }
 
   render() {
-    const { playedTime:prevPlayedTime , controlPlayIcon, controlPauseIcon, isPlaying  } = this.state
-    const { musicTime:prevMusicTime, musicUrl } = this.props.Store
+    const { playedTime: prevPlayedTime , controlPlayIcon, controlPauseIcon, isPlaying  } = this.state
+    const { musicTime: prevMusicTime, musicUrl } = this.props.Store
     const controlIcon = isPlaying ? controlPauseIcon : controlPlayIcon
     const musicTime = prevMusicTime ? moment(prevMusicTime).utcOffset(0).format('HH:mm:ss') : '00:00:00'
     const playedTime = moment(prevPlayedTime).utcOffset(0).format('HH:mm:ss')
 
+    console.log(musicUrl)
     if(musicUrl && this.soundFirst){
       this.soundFirst = false
       this.music = new Sound(musicUrl ? musicUrl : '');

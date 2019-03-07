@@ -65,7 +65,7 @@ class Audio extends Component {
             { iconContent.map((v,index)=> <Icon {...v} key={index}/>) }
           </View>
           <View style={{ height: 106 }}>
-            <PlayBar onUpdate = { this.handleUpdateTimer }/>
+            <PlayBar onUpdate = { this.handleUpdateTimer } navigation={ navigation }/>
           </View>
         </View>
       </View>
