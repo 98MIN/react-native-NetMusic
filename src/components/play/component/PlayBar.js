@@ -4,6 +4,7 @@ import { observer, inject } from 'mobx-react'
 import Icon from 'react-native-vector-icons/Feather'
 import moment from 'moment'
 import Sound from 'react-native-sound'
+import { ceilTime } from '../../../utils/utils'
 
 @inject('Store')
 @observer
@@ -29,18 +30,15 @@ class PlayBar extends Component {
       isPlaying : false
      };
     this.music = null
-     this._width = Dimensions.get('window').width - 56 * 2
-     this.timer = null
+    this._width = Dimensions.get('window').width - 56 * 2
+    this.timer = null
+    this.soundFirst = true
   }
   handleUpdatePlaying = (data) => {
-    if(data){
-      this.music.play((success)=>{
-        this.music.release()
-      })
-    }else{
-      this.music.pause()
-    }
     const { onUpdate } = this.props
+
+    data ? this.handlePlay() : this.handlePause()
+
     this.setState({
       isPlaying: data
     },()=>{
@@ -49,15 +47,27 @@ class PlayBar extends Component {
   }
 
   handlePlay = () => {
-    const { playedTime } = this.state
-    this.music.play()
+    const { Store : { musicTime } } = this.props
+
+    this.music.play(() => this.music.release())
     clearInterval(this.timer)
+
     this.timer = setInterval(() => {
+      let { playedTime:prevPlayedTime } = this.state
+      const playedTime = prevPlayedTime + 1000
+
+      if(prevPlayedTime >= ceilTime(musicTime)){
+        clearInterval(this.timer)
+        this.handleUpdatePlaying(false)
+        return
+      }
+
       this.setState({
-        playedTime: ++playedTime
+        playedTime
       })
     }, 1000);
   }
+
   handlePause = () => {
     this.music.stop()
     clearInterval(this.timer)
@@ -67,10 +77,11 @@ class PlayBar extends Component {
     const { playedTime:prevPlayedTime , controlPlayIcon, controlPauseIcon, isPlaying  } = this.state
     const { musicTime:prevMusicTime, musicUrl } = this.props.Store
     const controlIcon = isPlaying ? controlPauseIcon : controlPlayIcon
-    const musicTime = moment(prevMusicTime).utcOffset(0).format('HH:mm:ss')
+    const musicTime = prevMusicTime ? moment(prevMusicTime).utcOffset(0).format('HH:mm:ss') : '00:00:00'
     const playedTime = moment(prevPlayedTime).utcOffset(0).format('HH:mm:ss')
 
-    if(musicUrl){
+    if(musicUrl && this.soundFirst){
+      this.soundFirst = false
       this.music = new Sound(musicUrl ? musicUrl : '');
     }
 
@@ -82,7 +93,7 @@ class PlayBar extends Component {
           </View>
           <View style={{ width:this._width ,borderWidth:1}}></View>
           <View style={ styles.sideStyle }>
-            <Text style={{ fontSize: 11 }}>{ prevMusicTime ? musicTime : '00:00:00' }</Text>
+            <Text style={{ fontSize: 11 }}>{ musicTime }</Text>
           </View>
         </View>
         <View style={styles.controlBar}>

@@ -32,14 +32,14 @@ export function lyricFormatter(data: string): LyricInfo[] {
     txt.push(RegExp.$2)
   }
   time.map((v, index) => {
-    lyricInfo.push({ time: v, txt: txt[index].replace(/\n/gi,'') })
+    lyricInfo.push({ time: v, txt: txt[index].replace(/\n/gi, '') })
   })
 
   return lyricInfo
 }
 
+export function ceilTime(data: number): number {
+  let interValue: number = data / 1000
 
-export function timeFormatter(data:number) : string{
-
-  return ''
+  return Math.floor(interValue) * 1000
 }

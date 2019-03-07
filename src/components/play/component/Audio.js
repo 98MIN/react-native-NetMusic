@@ -24,7 +24,7 @@ class Audio extends Component {
 
     Animated.timing(this.spinValue, {
       toValue: ++this.value,
-      duration: 9000,
+      duration: 25,
       easing: Easing.linear,
       useNativeDriver: true,
     }).start(() => this.state.timer && this.spin())
@@ -42,7 +42,7 @@ class Audio extends Component {
     const { picUrl ,navigation } = this.props
     const spin = this.spinValue.interpolate({
       inputRange: [this.value, this.value + 1],
-      outputRange: [this.value * 360 + 'deg', (this.value + 1) * 360 + 'deg'],
+      outputRange: [this.value + 'deg', (this.value + 1) + 'deg'],
     })
     const iconContent = [
       {name:'heart', size:25},
