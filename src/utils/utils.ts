@@ -37,3 +37,9 @@ export function lyricFormatter(data: string): LyricInfo[] {
 
   return lyricInfo
 }
+
+
+export function timeFormatter(data:number) : string{
+
+  return ''
+}

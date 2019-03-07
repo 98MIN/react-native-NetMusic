@@ -17,7 +17,7 @@ import Start from '../components/Login/Start'
 import Account from '../components/account/Account'
 import HotSongs from '../components/HotSongs/HotSongs'
 import PlayPage from '../components/play/PlayPage'
-
+import Comments from '../components/comments/Comments'
 
 
 const BottomMater = createMaterialTopTabNavigator({
@@ -146,6 +146,9 @@ const PlayConfig = createStackNavigator({
   },
   'Play':{
     screen:PlayPage
+  },
+  'Comments':{
+    screen:Comments
   }
 })
 

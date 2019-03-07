@@ -42,7 +42,6 @@ class HotSongs extends Component {
       const musicInfo = formatterDailyPushSongs(v.recommend)
       let pageInfo = {}
 
-      console.log(v)
       Object.assign( pageInfo, { musicInfo } )
 
       this.setState({

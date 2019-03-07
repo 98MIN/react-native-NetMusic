@@ -6,8 +6,8 @@ import { observer, inject } from 'mobx-react'
 import { lyricFormatter } from '../../utils/utils'
 import Audio from './component/Audio'
 
-@observer
 @inject('Store')
+@observer
 class PlayPage extends Component {
   constructor(props) {
     super(props);
@@ -78,10 +78,10 @@ class PlayPage extends Component {
     }
   }
   render() {
-    const {  navigation: { state: { params : { picUrl } } }  } = this.props
+    const {  navigation, Store: {picUrl} } = this.props
 
     return (
-      <Audio picUrl={ picUrl }/>
+      <Audio picUrl={ picUrl } navigation={navigation}/>
     );
   }
 }
