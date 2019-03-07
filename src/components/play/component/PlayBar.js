@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import { observer, inject } from 'mobx-react'
 import Icon from 'react-native-vector-icons/Feather'
 import moment from 'moment'
+import Sound from 'react-native-sound'
 
 @inject('Store')
 @observer
@@ -27,32 +28,51 @@ class PlayBar extends Component {
       ],
       isPlaying : false
      };
+    this.music = null
      this._width = Dimensions.get('window').width - 56 * 2
+     this.timer = null
   }
   handleUpdatePlaying = (data) => {
-    console.log(2222)
+    if(data){
+      this.music.play((success)=>{
+        this.music.release()
+      })
+    }else{
+      this.music.pause()
+    }
     const { onUpdate } = this.props
-
     this.setState({
       isPlaying: data
     },()=>{
-      console.log(this.state.isPlaying)
       onUpdate(this.state.isPlaying)
     })
   }
-  componentDidMount () {
 
+  handlePlay = () => {
+    const { playedTime } = this.state
+    this.music.play()
+    clearInterval(this.timer)
+    this.timer = setInterval(() => {
+      this.setState({
+        playedTime: ++playedTime
+      })
+    }, 1000);
+  }
+  handlePause = () => {
+    this.music.stop()
+    clearInterval(this.timer)
   }
 
   render() {
-    console.log('重新渲染')
     const { playedTime:prevPlayedTime , controlPlayIcon, controlPauseIcon, isPlaying  } = this.state
-    const { musicTime:prevMusicTime } = this.props.Store
+    const { musicTime:prevMusicTime, musicUrl } = this.props.Store
+    const controlIcon = isPlaying ? controlPauseIcon : controlPlayIcon
     const musicTime = moment(prevMusicTime).utcOffset(0).format('HH:mm:ss')
     const playedTime = moment(prevPlayedTime).utcOffset(0).format('HH:mm:ss')
-    const controlIcon = isPlaying ? controlPauseIcon : controlPlayIcon
 
-    console.log(controlIcon)
+    if(musicUrl){
+      this.music = new Sound(musicUrl ? musicUrl : '');
+    }
 
     return (
       <View style={styles.container}>
@@ -66,7 +86,7 @@ class PlayBar extends Component {
           </View>
         </View>
         <View style={styles.controlBar}>
-          { controlIcon.map( (v,index) => <Icon {...v} key={index}/> ) }
+          { controlIcon.map((v, index) => <Icon {...v} key={index}/>) }
         </View>
       </View>
     );
