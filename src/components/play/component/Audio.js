@@ -9,13 +9,11 @@ class Audio extends Component {
     super(props)
     this.spinValue = new Animated.Value(0)
     this.state = {
-      timer: true,
+      timer: false,
     }
     this.value = 0
   }
-  componentDidMount() {
-    this.spin()
-  }
+
   componentWillUnmount() {
     this.setState({
       timer: false,
@@ -31,6 +29,15 @@ class Audio extends Component {
       useNativeDriver: true,
     }).start(() => this.state.timer && this.spin())
   }
+
+  handleUpdateTimer = (data) => {
+    this.setState({
+      timer : data
+    },()=>{
+      this.state.timer && this.spin()
+    })
+  }
+
   render() {
     const { picUrl ,navigation } = this.props
     const spin = this.spinValue.interpolate({
@@ -38,10 +45,10 @@ class Audio extends Component {
       outputRange: [this.value * 360 + 'deg', (this.value + 1) * 360 + 'deg'],
     })
     const iconContent = [
-      {name:'heart',size:25},
-      {name:'download',size:25},
-      {name:'message-square',size:25,onPress:()=> { navigation.navigate('Comments',{ headerTitle: '评论' }) }},
-      {name:'more-vertical',size:25}
+      {name:'heart', size:25},
+      {name:'download', size:25},
+      {name:'message-square', size:25, onPress:()=> { navigation.navigate('Comments',{ headerTitle: '评论' }) }},
+      {name:'more-vertical', size:25}
     ]
 
     return (
@@ -58,7 +65,7 @@ class Audio extends Component {
             { iconContent.map((v,index)=> <Icon {...v} key={index}/>) }
           </View>
           <View style={{ height: 106 }}>
-            <PlayBar/>
+            <PlayBar onUpdate = { this.handleUpdateTimer }/>
           </View>
         </View>
       </View>
@@ -93,7 +100,6 @@ const styles = StyleSheet.create({
   },
   controlBar: {
     height:200,
-    backgroundColor: 'red',
     width: Dimensions.get('window').width,
     justifyContent: 'center',
     alignItems:'center'

@@ -11,26 +11,48 @@ class PlayBar extends Component {
     super(props);
     this.state = {
       playedTime : 0,
-      controlIcon : [
+      controlPlayIcon : [
         { name: 'refresh-cw' ,size: 25 },
         { name: 'skip-back' ,size: 25 },
-        { name: 'play-circle' ,size: 36 },
+        { name: 'play-circle' ,size: 36, onPress : this.handleUpdatePlaying.bind(this,true) },
         { name: 'skip-forward' ,size: 25 },
         { name: 'clipboard' ,size: 25 }
-      ]
+      ],
+      controlPauseIcon : [
+        { name: 'refresh-cw' ,size: 25 },
+        { name: 'skip-back' ,size: 25 },
+        { name: 'pause-circle' ,size: 36 , onPress : this.handleUpdatePlaying.bind(this,false) },
+        { name: 'skip-forward' ,size: 25 },
+        { name: 'clipboard' ,size: 25 }
+      ],
+      isPlaying : false
      };
      this._width = Dimensions.get('window').width - 56 * 2
+  }
+  handleUpdatePlaying = (data) => {
+    console.log(2222)
+    const { onUpdate } = this.props
+
+    this.setState({
+      isPlaying: data
+    },()=>{
+      console.log(this.state.isPlaying)
+      onUpdate(this.state.isPlaying)
+    })
   }
   componentDidMount () {
 
   }
 
   render() {
-    const { playedTime:prevPlayedTime , controlIcon } = this.state
+    console.log('重新渲染')
+    const { playedTime:prevPlayedTime , controlPlayIcon, controlPauseIcon, isPlaying  } = this.state
     const { musicTime:prevMusicTime } = this.props.Store
-
     const musicTime = moment(prevMusicTime).utcOffset(0).format('HH:mm:ss')
     const playedTime = moment(prevPlayedTime).utcOffset(0).format('HH:mm:ss')
+    const controlIcon = isPlaying ? controlPauseIcon : controlPlayIcon
+
+    console.log(controlIcon)
 
     return (
       <View style={styles.container}>
@@ -44,7 +66,7 @@ class PlayBar extends Component {
           </View>
         </View>
         <View style={styles.controlBar}>
-          { controlIcon.map(v=><Icon {...v}/>)}
+          { controlIcon.map( (v,index) => <Icon {...v} key={index}/> ) }
         </View>
       </View>
     );
