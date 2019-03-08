@@ -18,7 +18,8 @@ class PlayPage extends Component {
           userName: '',
           userId: ''
         }
-      }
+      },
+      musicUrl:''
     };
   }
 
@@ -32,7 +33,11 @@ class PlayPage extends Component {
       await setAxios(`music/url?id=${params.musicId}`).then(v=>{
         let musicInfo = {}
 
-        Object.assign( musicInfo, params, { musicUrl:v.data[0].url } )
+        this.setState({
+          musicUrl: v.data[0].url
+        })
+
+        Object.assign( musicInfo, params )
         Object.keys( musicInfo ).forEach(function( key ){
           Store.setMusic( key, musicInfo[key] )
         });
@@ -54,6 +59,7 @@ class PlayPage extends Component {
     })
   }
 
+
   static navigationOptions =({ navigation }) => {
     const { params } = navigation.state
 
@@ -74,14 +80,16 @@ class PlayPage extends Component {
       headerStyle:{
         backgroundColor:'rgb(206,19,33)'
       },
-      headerTintColor:'white'
+      headerTintColor:'white',
+      headerLeft:<View style={{marginLeft:15}}><Icon name={"arrow-left"} size={ 24 } color={'white'} onPress={ () => { navigation.goBack() }}/></View>,
     }
   }
   render() {
-    const {  navigation, Store: { picUrl } } = this.props
+    const { navigation, Store: { picUrl } } = this.props
+    const { musicUrl } = this.state
 
     return (
-      <Audio picUrl={ picUrl } navigation={navigation}/>
+      <Audio picUrl={ picUrl } navigation={navigation} musicUrl={ musicUrl }/>
     );
   }
 }

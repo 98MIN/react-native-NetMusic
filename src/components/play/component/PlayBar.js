@@ -33,6 +33,7 @@ class PlayBar extends Component {
     this._width = Dimensions.get('window').width - 56 * 2
     this.timer = null
     this.soundFirst = true
+    this.oldMusicUrl = ''
   }
   handleUpdatePlaying = (data) => {
     const { onUpdate } = this.props
@@ -47,13 +48,25 @@ class PlayBar extends Component {
   }
 
   componentDidMount(){
-    const { navigation } = this.props
+    const { musicUrl,navigation } = this.props
 
+    if(musicUrl !== this.oldMusicUrl){
+      this.setState({
+        playedTime: 0
+      })
+    }
     navigation.addListener('didBlur',()=>{
-      this.soundFirst = true
-      this.music.release()
+      const { playedTime } = this.state
+      AsyncStorage.setItem('name', JSON.stringify(), (error, result) => {
+        if (!error) {
+            this.setState({
+                data:'保存成功!'
+            })
+        }
+    });
     })
   }
+
 
   handlePlay = () => {
     const { Store : { musicTime } } = this.props
@@ -71,7 +84,7 @@ class PlayBar extends Component {
     clearInterval(this.timer)
 
     this.timer = setInterval(() => {
-      let { playedTime:prevPlayedTime } = this.state
+      let { playedTime: prevPlayedTime } = this.state
       const playedTime = prevPlayedTime + 1000
 
       if(prevPlayedTime >= ceilTime(musicTime)){
@@ -94,15 +107,20 @@ class PlayBar extends Component {
 
   render() {
     const { playedTime: prevPlayedTime , controlPlayIcon, controlPauseIcon, isPlaying  } = this.state
-    const { musicTime: prevMusicTime, musicUrl } = this.props.Store
+    const { Store:{ musicTime: prevMusicTime }, musicUrl } = this.props
     const controlIcon = isPlaying ? controlPauseIcon : controlPlayIcon
     const musicTime = prevMusicTime ? moment(prevMusicTime).utcOffset(0).format('HH:mm:ss') : '00:00:00'
     const playedTime = moment(prevPlayedTime).utcOffset(0).format('HH:mm:ss')
 
-    console.log(musicUrl)
-    if(musicUrl && this.soundFirst){
-      this.soundFirst = false
-      this.music = new Sound(musicUrl ? musicUrl : '');
+    if(this.oldMusicUrl !== musicUrl){
+      console.log(this.music)
+      this.music && this.music.stop()
+      console.log(this.music)
+      this.music && this.music.release()
+      this.music = new Sound(musicUrl);
+      this.oldMusicUrl = musicUrl
+
+      console.log(this.music)
     }
 
     return (

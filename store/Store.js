@@ -7,7 +7,6 @@ class Store {
     @observable isLogin = false
     @observable userId = null
     @observable musicTime = null
-    @observable musicUrl = null
     @observable musicId = null
     @observable picUrl = ''
 

@@ -39,7 +39,7 @@ class Audio extends Component {
   }
 
   render() {
-    const { picUrl ,navigation } = this.props
+    const { picUrl , navigation, musicUrl } = this.props
     const spin = this.spinValue.interpolate({
       inputRange: [this.value, this.value + 1],
       outputRange: [this.value + 'deg', (this.value + 1) + 'deg'],
@@ -65,7 +65,7 @@ class Audio extends Component {
             { iconContent.map((v,index)=> <Icon {...v} key={index}/>) }
           </View>
           <View style={{ height: 106 }}>
-            <PlayBar onUpdate = { this.handleUpdateTimer } navigation={ navigation }/>
+            <PlayBar onUpdate = { this.handleUpdateTimer } navigation={ navigation } musicUrl={ musicUrl }/>
           </View>
         </View>
       </View>
