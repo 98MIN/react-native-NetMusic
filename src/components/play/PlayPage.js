@@ -58,6 +58,9 @@ class PlayPage extends Component {
       })
     })
   }
+  componentWillUnmount(){
+    console.log('我卸载了')
+  }
 
 
   static navigationOptions =({ navigation }) => {
@@ -81,7 +84,6 @@ class PlayPage extends Component {
         backgroundColor:'rgb(206,19,33)'
       },
       headerTintColor:'white',
-      headerLeft:<View style={{marginLeft:15}}><Icon name={"arrow-left"} size={ 24 } color={'white'} onPress={ () => { navigation.goBack() }}/></View>,
     }
   }
   render() {

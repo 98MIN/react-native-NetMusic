@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import Swiper from 'react-native-swiper'
 import setAxios from '../../utils/axios'
 import Icon from 'react-native-vector-icons/Feather'
+import Loading from '../Loading/Loading'
 
 class Home extends Component {
   constructor(props) {
@@ -70,7 +71,7 @@ class Home extends Component {
       </View>
     ) : (
       <View style={{ justifyContent:'center',alignItems:'center',flex:1}}>
-        <Icon name={"loader"} size={25}/>
+       <Loading/>
       </View>
     )
   }
