@@ -91,7 +91,7 @@ class PlayPage extends Component {
     const { musicUrl } = this.state
 
     return (
-      <Audio picUrl={ picUrl } navigation={navigation} musicUrl={ musicUrl }/>
+      <Audio picUrl={ picUrl } navigation={navigation} musicUrl={ musicUrl } musicId={ navigation.state.params.musicId }/>
     );
   }
 }

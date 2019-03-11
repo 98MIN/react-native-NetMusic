@@ -43,3 +43,9 @@ export function ceilTime(data: number): number {
 
   return Math.floor(interValue) * 1000
 }
+
+
+export function format(data: number):string {
+
+  return data > 9999 ? (data > 1000000 ? parseInt((data/10000).toString())+'万' : (data/10000).toFixed(2)+'万')  : data.toString()
+}

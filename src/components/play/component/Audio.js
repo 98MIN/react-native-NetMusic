@@ -39,7 +39,7 @@ class Audio extends Component {
   }
 
   render() {
-    const { picUrl , navigation, musicUrl } = this.props
+    const { picUrl , navigation, musicUrl, musicId } = this.props
     const spin = this.spinValue.interpolate({
       inputRange: [this.value, this.value + 1],
       outputRange: [this.value + 'deg', (this.value + 1) + 'deg'],
@@ -47,7 +47,7 @@ class Audio extends Component {
     const iconContent = [
       {name:'heart', size:25},
       {name:'download', size:25},
-      {name:'message-square', size:25, onPress:()=> { navigation.navigate('Comments',{ headerTitle: '评论' }) }},
+      {name:'message-square', size:25, onPress:()=> { navigation.navigate('Comments',{ headerTitle: '评论', musicId }) }},
       {name:'more-vertical', size:25}
     ]
 

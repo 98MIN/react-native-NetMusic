@@ -1,11 +1,16 @@
 import React,{ Component } from 'react'
-import { View,Text } from 'react-native'
+import { View,Text, StyleSheet, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import CommentBar from './components/CommentBar'
+import setAxios from '../../utils/axios'
+import { getCommentInfo } from './commentsAdapter'
+
 class Comments extends Component {
   constructor(props) {
     super(props);
-    this.state = {  };
+    this.state = {
+      commentInfo: []
+    };
   }
   static navigationOptions = (({ navigation: { state: { params } }})=>{
 
@@ -26,13 +31,34 @@ class Comments extends Component {
       headerTintColor:'white'
     }
   })
-  render() {
-    return (
-      <View>
 
-      </View>
+  componentDidMount = () => {
+    const { navigation: { state: { params: { musicId }}} } = this.props
+
+    setAxios(`comment/music?id=${musicId}&limit=1`).then(v=>{
+      this.setState({
+        commentInfo: getCommentInfo(v)
+      })
+    })
+  }
+
+  render() {
+    const { commentInfo } = this.state
+
+    return (
+      <ScrollView style={StyleSheet.container}>
+       { commentInfo.map((item,index)=>{
+       return  <CommentBar {...item} key={index}/>
+      })}
+      </ScrollView>
     );
   }
 }
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+})
 export default Comments;
