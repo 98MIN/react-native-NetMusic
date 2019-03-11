@@ -1,7 +1,7 @@
 import React,{ Component } from 'react'
 import { View,Text } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
-
+import CommentBar from './components/CommentBar'
 class Comments extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +29,7 @@ class Comments extends Component {
   render() {
     return (
       <View>
-        <Text>2222</Text>
+
       </View>
     );
   }
