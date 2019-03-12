@@ -18,6 +18,7 @@ import Account from '../components/account/Account'
 import HotSongs from '../components/HotSongs/HotSongs'
 import PlayPage from '../components/play/PlayPage'
 import Comments from '../components/comments/Comments'
+import Mine from '../components/Mine/Mine'
 
 
 const BottomMater = createMaterialTopTabNavigator({
@@ -94,7 +95,7 @@ const NavigationConfig = createBottomTabNavigator({
     }
   },
   '我的音乐': {
-    screen: Leaderboard,
+    screen: Mine,
     navigationOptions:{
       tabBarIcon:({focused})=>{
         return focused ? rendIcon('music','iconFocus') : rendIcon('music','iconBlur')
