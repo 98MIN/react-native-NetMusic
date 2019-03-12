@@ -111,6 +111,7 @@ class PlayBar extends Component {
     const controlIcon = isPlaying ? controlPauseIcon : controlPlayIcon
     const musicTime = prevMusicTime ? moment(prevMusicTime).utcOffset(0).format('HH:mm:ss') : '00:00:00'
     const playedTime = moment(prevPlayedTime).utcOffset(0).format('HH:mm:ss')
+    const playedWidth = Math.floor(prevPlayedTime/prevMusicTime * this._width) || 0
 
     if(this.oldMusicUrl !== musicUrl){
       console.log(this.music)
@@ -129,7 +130,9 @@ class PlayBar extends Component {
           <View style={ styles.sideStyle }>
             <Text style={{ fontSize: 11 }}>{ playedTime }</Text>
           </View>
-          <View style={{ width:this._width ,borderWidth:1}}></View>
+          <View style={{ width:this._width ,backgroundColor: '#ccc', height: 1 }}>
+            <View style={{ width: playedWidth, backgroundColor: 'rgb(206,19,33)', height:1 }}></View>
+          </View>
           <View style={ styles.sideStyle }>
             <Text style={{ fontSize: 11 }}>{ musicTime }</Text>
           </View>
