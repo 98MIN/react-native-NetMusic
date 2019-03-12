@@ -14,8 +14,6 @@ export function getCommentInfo( data ){
     })
   })
 
-
-  console.log(arr)
   return arr
 }
 
