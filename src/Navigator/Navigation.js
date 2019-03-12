@@ -82,6 +82,9 @@ const Personal = createStackNavigator({
   },
   '每日歌曲推荐':{
     screen: HotSongs,
+  },
+  'playlist':{
+    screen: HotSongs,
   }
 })
 
