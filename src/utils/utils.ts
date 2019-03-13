@@ -38,7 +38,7 @@ export function lyricFormatter(data: string): LyricInfo[] {
   return lyricInfo
 }
 
-export function ceilTime(data: number): number {
+export function floorTime(data: number): number {
   let interValue: number = data / 1000
 
   return Math.floor(interValue) * 1000

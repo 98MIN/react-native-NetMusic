@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react'
 import Icon from 'react-native-vector-icons/Feather'
 import moment from 'moment'
 import Sound from 'react-native-sound'
-import { ceilTime } from '../../../utils/utils'
+import { floorTime } from '../../../utils/utils'
 
 @inject('Store')
 @observer
@@ -57,9 +57,6 @@ class PlayBar extends Component {
         playedTime: 0
       })
     }
-    navigation.addListener('didBlur',()=>{
-      const { playedTime } = this.state
-    })
   }
 
   handleLoop = () => {
@@ -76,7 +73,7 @@ class PlayBar extends Component {
     const { Store : { musicTime } } = this.props
     const { playedTime: prevPlayedTime, loop } = this.state
 
-    if(prevPlayedTime >= ceilTime(musicTime)){
+    if(prevPlayedTime >= floorTime(musicTime)){
       const playedTime = 0
 
       this.setState({
@@ -88,22 +85,22 @@ class PlayBar extends Component {
     clearInterval(this.timer)
 
     this.timer = setInterval(() => {
-      let { playedTime: prevPlayedTime } = this.state
-      let playedTime = prevPlayedTime + 1000
+      this.music.getCurrentTime(playedTime => this.setState({ playedTime : Math.floor(playedTime) * 1000 }))
 
-      if( loop && prevPlayedTime >= ceilTime(musicTime) ){
-        playedTime = 0
+      const { playedTime } = this.state
+
+      if( loop && playedTime >= floorTime(musicTime) ){
+        this.music.getCurrentTime(playedTime => this.setState({ playedTime : Math.floor(playedTime) * 1000 }))
         this.handleUpdatePlaying(true)
-      }else if( prevPlayedTime >= ceilTime(musicTime) ){
+      }else if( playedTime >= floorTime(musicTime) ){
         clearInterval(this.timer)
         this.handleUpdatePlaying(false)
         this.music.stop()
+
         return
       }
 
-      this.setState({
-        playedTime
-      })
+      this.music.getCurrentTime(playedTime => this.setState({ playedTime : Math.floor(playedTime) * 1000 }))
     }, 1000);
   }
 
