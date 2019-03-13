@@ -83,6 +83,8 @@ class PlayBar extends Component {
 
     this.music.play()
     clearInterval(this.timer)
+    // 处理暂停后一秒后才继续计时问题
+    this.music.getCurrentTime(playedTime => this.setState({ playedTime : Math.floor(playedTime) * 1000 }))
 
     this.timer = setInterval(() => {
       this.music.getCurrentTime(playedTime => this.setState({ playedTime : Math.floor(playedTime) * 1000 }))
