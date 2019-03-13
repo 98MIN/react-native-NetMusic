@@ -191,7 +191,7 @@ class HotSongs extends Component {
       </View>
     )
   }
-  renderDailtPushItem = ({ item, index }) => {
+  renderDailyPushItem = ({ item, index }) => {
     return (
       <View>
         {!index ? (
@@ -236,7 +236,7 @@ class HotSongs extends Component {
       <FlatList
         keyExtractor={this.keyExtractor}
         data={pageInfo.musicInfo}
-        renderItem={routeName === '每日歌曲推荐' ? this.renderDailtPushItem : this.renderHotSongsItem}
+        renderItem={routeName === '每日歌曲推荐' ? this.renderDailyPushItem : this.renderHotSongsItem}
       />
     ) : (
       <Loading />

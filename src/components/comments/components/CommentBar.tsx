@@ -24,8 +24,10 @@ class CommentBar extends React.Component<
   handleLiked = (commentId, isLiked) => {
     const { onUpdate, musicId } = this.props
     const t = isLiked ? 0 : 1
+    const time = new Date().getTime()
 
-    setAxios(`comment/like?id=${musicId}&cid=${commentId}&t=${t}&type=0`).then((v) => {
+    setAxios(`comment/like?id=${musicId}&cid=${commentId}&t=${t}&type=0&time=${time}`).then((v) => {
+      console.log(v)
       onUpdate()
     })
   }

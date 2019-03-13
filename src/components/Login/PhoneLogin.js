@@ -18,7 +18,7 @@ class PhoneLogin extends Component {
   }
 
   componentDidMount(){
-    console.log(2222)
+
   }
   handleLogin = () => {
     const { navigation, Store } = this.props

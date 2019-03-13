@@ -2,7 +2,9 @@ import { View, StyleSheet, Image, Text, ImageBackground, Animated, Easing, Dimen
 import propTypes from 'prop-types'
 import React, { Component } from 'react'
 import Icon from 'react-native-vector-icons/Feather'
+import { Badge } from 'react-native-elements'
 import PlayBar from './PlayBar'
+import setAxios from '../../../utils/axios';
 
 class Audio extends Component {
   constructor(props) {
@@ -10,6 +12,7 @@ class Audio extends Component {
     this.spinValue = new Animated.Value(0)
     this.state = {
       timer: false,
+      commentCount : 0
     }
     this.value = 0
   }
@@ -37,6 +40,15 @@ class Audio extends Component {
       this.state.timer && this.spin()
     })
   }
+  componentDidMount = () => {
+    const { musicId } = this.props
+    setAxios(`comment/music?id=${musicId}`).then(v=>{
+      this.setState({
+        commentCount: v.total
+      })
+    })
+  }
+
 
   render() {
     const { picUrl , navigation, musicUrl, musicId } = this.props
@@ -62,7 +74,17 @@ class Audio extends Component {
         </Animated.View>
         <View style={styles.controlBar}>
           <View style={styles.controlBar_icon}>
-            { iconContent.map((v,index)=> <Icon {...v} key={index}/>) }
+            { iconContent.map((v,index)=>
+            <View>
+              { index === 2
+              ?
+              <View style={{ position: 'absolute',top: -15,right: -40,width: 50 }} >
+                <Text>{this.state.commentCount > 1000 ? '999+' : this.state.commentCount}</Text>
+              </View> : null
+              }
+              <Icon {...v} key={index}/>
+            </View>)
+          }
           </View>
           <View style={{ height: 106 }}>
             <PlayBar onUpdate = { this.handleUpdateTimer } navigation={ navigation } musicUrl={ musicUrl }/>
