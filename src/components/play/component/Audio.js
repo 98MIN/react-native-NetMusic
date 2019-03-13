@@ -78,9 +78,10 @@ class Audio extends Component {
             <View>
               { index === 2
               ?
-              <View style={{ position: 'absolute',top: -15,right: -40,width: 50 }} >
-                <Text>{this.state.commentCount > 1000 ? '999+' : this.state.commentCount}</Text>
-              </View> : null
+              <View style={{ position: 'absolute',top: -13,right: -37,width: 50 }} key={10}>
+                <Text style={{ fontSize: 11 }}>{this.state.commentCount > 1000 ? '999+' : this.state.commentCount}</Text>
+              </View>
+              : null
               }
               <Icon {...v} key={index}/>
             </View>)

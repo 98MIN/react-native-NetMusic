@@ -34,7 +34,7 @@ class PlayPage extends Component {
         let musicInfo = {}
 
         this.setState({
-          musicUrl: v.data[0].url
+          musicUrl: v.data[0].url,
         })
 
         Object.assign( musicInfo, params )
@@ -91,7 +91,12 @@ class PlayPage extends Component {
     const { musicUrl } = this.state
 
     return (
-      <Audio picUrl={ picUrl } navigation={navigation} musicUrl={ musicUrl } musicId={ navigation.state.params.musicId }/>
+      <Audio
+        picUrl={ picUrl }
+        navigation={navigation}
+        musicUrl={ musicUrl }
+        musicId={ navigation.state.params.musicId }
+      />
     );
   }
 }

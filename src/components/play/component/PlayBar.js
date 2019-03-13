@@ -11,22 +11,10 @@ import { ceilTime } from '../../../utils/utils'
 class PlayBar extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      loop: 0,
       playedTime : 0,
-      controlPlayIcon : [
-        { name: 'refresh-cw' ,size: 25 },
-        { name: 'skip-back' ,size: 25 },
-        { name: 'play-circle' ,size: 36, onPress : this.handleUpdatePlaying.bind(this,true) },
-        { name: 'skip-forward' ,size: 25 },
-        { name: 'clipboard' ,size: 25 }
-      ],
-      controlPauseIcon : [
-        { name: 'refresh-cw' ,size: 25 },
-        { name: 'skip-back' ,size: 25 },
-        { name: 'pause-circle' ,size: 36 , onPress : this.handleUpdatePlaying.bind(this,false) },
-        { name: 'skip-forward' ,size: 25 },
-        { name: 'clipboard' ,size: 25 }
-      ],
       isPlaying : false
      };
     this.music = null
@@ -34,6 +22,20 @@ class PlayBar extends Component {
     this.timer = null
     this.soundFirst = true
     this.oldMusicUrl = ''
+    this.controlPlayIcon = [
+      { name: 'repeat' ,size: 25 , onPress : this.handleLoop },
+      { name: 'skip-back' ,size: 25 },
+      { name: 'play-circle' ,size: 36, onPress : this.handleUpdatePlaying.bind(this,true) },
+      { name: 'skip-forward' ,size: 25 },
+      { name: 'clipboard' ,size: 25 }
+    ]
+    this.controlPauseIcon = [
+      { name: 'repeat' ,size: 25 , onPress : this.handleLoop },
+      { name: 'skip-back' ,size: 25 },
+      { name: 'pause-circle' ,size: 36 , onPress : this.handleUpdatePlaying.bind(this,false) },
+      { name: 'skip-forward' ,size: 25 },
+      { name: 'clipboard' ,size: 25 }
+    ]
   }
   handleUpdatePlaying = (data) => {
     const { onUpdate } = this.props
@@ -57,20 +59,22 @@ class PlayBar extends Component {
     }
     navigation.addListener('didBlur',()=>{
       const { playedTime } = this.state
-      AsyncStorage.setItem('name', JSON.stringify(), (error, result) => {
-        if (!error) {
-            this.setState({
-                data:'保存成功!'
-            })
-        }
-    });
     })
   }
 
+  handleLoop = () => {
+    const { loop: prevLoop } = this.state
+    const loop = !prevLoop ? 1 : 0
+    !prevLoop ? this.music.setNumberOfLoops(1) : this.music.setNumberOfLoops(0)
+
+    this.setState({
+      loop
+    })
+  }
 
   handlePlay = () => {
     const { Store : { musicTime } } = this.props
-    const { playedTime: prevPlayedTime } = this.state
+    const { playedTime: prevPlayedTime, loop } = this.state
 
     if(prevPlayedTime >= ceilTime(musicTime)){
       const playedTime = 0
@@ -85,9 +89,12 @@ class PlayBar extends Component {
 
     this.timer = setInterval(() => {
       let { playedTime: prevPlayedTime } = this.state
-      const playedTime = prevPlayedTime + 1000
+      let playedTime = prevPlayedTime + 1000
 
-      if(prevPlayedTime >= ceilTime(musicTime)){
+      if( loop && prevPlayedTime >= ceilTime(musicTime) ){
+        playedTime = 0
+        this.handleUpdatePlaying(true)
+      }else if( prevPlayedTime >= ceilTime(musicTime) ){
         clearInterval(this.timer)
         this.handleUpdatePlaying(false)
         this.music.stop()
@@ -106,22 +113,18 @@ class PlayBar extends Component {
   }
 
   render() {
-    const { playedTime: prevPlayedTime , controlPlayIcon, controlPauseIcon, isPlaying  } = this.state
+    const { playedTime: prevPlayedTime , isPlaying, loop  } = this.state
     const { Store:{ musicTime: prevMusicTime }, musicUrl } = this.props
-    const controlIcon = isPlaying ? controlPauseIcon : controlPlayIcon
+    const controlIcon = isPlaying ? this.controlPauseIcon : this.controlPlayIcon
     const musicTime = prevMusicTime ? moment(prevMusicTime).utcOffset(0).format('HH:mm:ss') : '00:00:00'
     const playedTime = moment(prevPlayedTime).utcOffset(0).format('HH:mm:ss')
     const playedWidth = Math.floor(prevPlayedTime/prevMusicTime * this._width) || 0
 
     if(this.oldMusicUrl !== musicUrl){
-      console.log(this.music)
       this.music && this.music.stop()
-      console.log(this.music)
       this.music && this.music.release()
       this.music = new Sound(musicUrl);
       this.oldMusicUrl = musicUrl
-
-      console.log(this.music)
     }
 
     return (
@@ -138,7 +141,13 @@ class PlayBar extends Component {
           </View>
         </View>
         <View style={styles.controlBar}>
-          { controlIcon.map((v, index) => <Icon {...v} key={index}/>) }
+          { controlIcon.map((v, index) =>
+          <View>
+            <Icon {...v} key={index} />
+            {
+              !index && loop ? <Text style={{ position:'absolute', fontSize:11, fontWeight: '900', right: 10, top: 4 }}>1</Text> : null
+            }
+          </View>) }
         </View>
       </View>
     );
