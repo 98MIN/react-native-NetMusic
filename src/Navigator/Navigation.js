@@ -19,6 +19,7 @@ import HotSongs from '../components/HotSongs/HotSongs'
 import PlayPage from '../components/play/PlayPage'
 import Comments from '../components/comments/Comments'
 import Mine from '../components/Mine/Mine'
+import Search from '../components/search/Search'
 
 
 const BottomMater = createMaterialTopTabNavigator({
@@ -105,8 +106,8 @@ const NavigationConfig = createBottomTabNavigator({
       }
     }
   },
-  '朋友': {
-    screen: Leaderboard,
+  '大千世界': {
+    screen: Search,
     navigationOptions:{
       tabBarIcon:({focused})=>{
         return focused ? rendIcon('users','iconFocus') : rendIcon('users','iconBlur')

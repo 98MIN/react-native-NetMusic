@@ -144,7 +144,7 @@ class PlayBar extends Component {
           <View>
             <Icon {...v} key={index} />
             {
-              !index && loop ? <Text style={{ position:'absolute', fontSize:11, fontWeight: '900', right: 10, top: 4 }}>1</Text> : null
+              !index && loop ? <Text style={{ position:'absolute', fontSize:11, fontWeight: '900', right: 10, top: 6 }}>1</Text> : null
             }
           </View>) }
         </View>
