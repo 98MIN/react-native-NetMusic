@@ -28,9 +28,10 @@ export function lyricFormatter(data: string): LyricInfo[] {
 
   for (let i = 0; i < arr.length; i++) {
     ;/^(\[\d{2}:\d{2}\.\d{2}\])(.[^\[\]]*)?$/.exec(arr[i])
-    time.push(RegExp.$1)
     txt.push(RegExp.$2)
+    time.push('00:'+RegExp.$1.replace(/\.\d{2}/gi,'').replace(/\[|\]/gi,''))
   }
+
   time.map((v, index) => {
     lyricInfo.push({ time: v, txt: txt[index].replace(/\n/gi, '') })
   })
