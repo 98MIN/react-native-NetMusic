@@ -70,7 +70,7 @@ class Comments extends React.Component{
     } = this.props
 
     return (
-      <ScrollView style={StyleSheet.container}>
+      <ScrollView>
         {commentInfo.map((item, index) => {
           return <CommentBar {...item} key={index} onUpdate={this.handleUpdate} musicId={musicId} />
         })}

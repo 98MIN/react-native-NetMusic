@@ -37,8 +37,8 @@ class Loading extends Component{
     render(){
         const { color, size } = this.props
         const spin = this.spinValue.interpolate({
-            inputRange: [0, 1],//输入值
-            outputRange: ['0deg', '360deg'] //输出值
+            inputRange: [0, 1],
+            outputRange: ['0deg', '360deg']
           })
 
           return(

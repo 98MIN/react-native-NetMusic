@@ -44,19 +44,21 @@ export function floorTime(data: number): number {
   return Math.floor(interValue) * 1000
 }
 
-
-export function format(data: number):string {
-
-  return data > 9999 ? (data > 1000000 ? parseInt((data/10000).toString())+'万' : (data/10000).toFixed(2)+'万')  : data.toString()
+export function format(data: number): string {
+  return data > 9999
+    ? data > 1000000
+      ? parseInt((data / 10000).toString()) + '万'
+      : (data / 10000).toFixed(2) + '万'
+    : data.toString()
 }
 
-
-export function debounce(fn,interval = 1000){
+export function debounce(fn, interval = 1000) {
   let timer = null
-  return function(){
+
+  return function() {
     clearTimeout(timer)
-    timer = setTimeout(()=>{
-      fn.apply(this,arguments)
-    },interval)
+    timer = setTimeout(() => {
+      fn.apply(this, arguments)
+    }, interval)
   }
 }

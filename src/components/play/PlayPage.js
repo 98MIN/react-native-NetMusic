@@ -25,8 +25,6 @@ class PlayPage extends Component {
 
 
   componentDidMount(){
-    // /lyric?id=33894312 获取歌词
-    //  /comment/music?id=186016 歌曲评论 默认20条
     const { Store,  navigation: { state: { params }, addListener }  } = this.props
 
     addListener('didFocus',async payload => {

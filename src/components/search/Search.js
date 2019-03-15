@@ -82,7 +82,6 @@ export default Search;
 function adapterSearchResult(data){
   let result = []
   result = data.map(v=>{
-    console.log(v)
     return {
       singer_pic : v.artists.map(vv=>vv.img1v1Url).join(''),
       singer_name : v.artists.map(vv=>vv.name).join('-'),
