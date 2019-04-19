@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/Feather'
 import Loading from '../Loading/Loading'
 import { getPersonalizedInfo } from './personalizedAdapter'
 import { format } from '../../utils/utils'
+import BoxShadow from 'react-native-shadow'
 
 class Home extends Component {
   constructor(props) {
@@ -69,6 +70,18 @@ class Home extends Component {
 
   render() {
     const { isSwiperShow, personalizedData } = this.state
+    const shadowOpt = {
+      width: 100,
+      height: 100,
+      color: '#000',
+      border: 2,
+      radius: 3,
+      opacity: 0.2,
+      x: 0,
+      y: 3,
+      inset: true,
+      style: { marginVertical: 5 },
+    }
 
     return isSwiperShow ? (
       <ScrollView>
@@ -96,14 +109,24 @@ class Home extends Component {
           {personalizedData.map((v) => {
             return (
               <View key={v.id} style={{ alignItems: 'center', paddingBottom: 10 }}>
-                <Avatar
-                  size={110}
-                  rounded
-                  source={{
-                    uri: v.picUrl,
+                <View
+                  style={{
+                    width: 120,
+                    borderWidth: 10,
+                    borderColor: 'rgba(198, 199, 198,0.15)',
+                    borderRadius: 65,
+                    height: 120,
                   }}
-                  avatarStyle={{ padding: 15 }}
-                />
+                >
+                  <Avatar
+                    size={100}
+                    rounded
+                    source={{
+                      uri: v.picUrl,
+                    }}
+                    avatarStyle={{ padding: 15 }}
+                  />
+                </View>
                 <Text
                   style={{ width: 110, fontSize: 12, color: '#000', textAlign: 'center', paddingTop: 10 }}
                   numberOfLines={1}
