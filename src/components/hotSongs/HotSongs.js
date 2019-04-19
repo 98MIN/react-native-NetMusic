@@ -37,6 +37,9 @@ class HotSongs extends Component {
       })
     })
   }
+  /**
+   * 获取日推信息
+   */
   getDailyPush = () => {
     setAxios('recommend/songs')
       .then((v) => {
